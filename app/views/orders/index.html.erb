@@ -1,0 +1,14 @@
+<h3>this is the list of product that we have:</h3>
+
+<%if !@product.nil? %>
+<% @product.each do |x| %>
+<%= x.product_name %>
+<%= image_tag x.image.url %>
+<%= x.description %>
+<%= x.quantity %>
+<%= x.id%>
+
+<%= link_to 'Order this product', order_path(x, :product_id => x.id ) %>
+<%end%>
+
+<%end%>
