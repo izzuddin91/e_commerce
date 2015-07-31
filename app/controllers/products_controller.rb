@@ -13,12 +13,35 @@ class ProductsController < ApplicationController
 		redirect_to admin_path(@product)
 	end
 
-	private
+	def edit
+		@product = Product.find(params[:product_id])
+	end
+
+	def update
+		@product = Product.find(params[:id])
+		if @product.update(product_params)
+      # Handle a successful update.
+      redirect_to dashboard_path
+  else
+  	render 'edit'
+  end
+end
+
+def destroy
+	
+	@product = Product.find(params[:product_id])
+	
+	@product.delete
+    # flash[:success] = "User deleted"
+      redirect_to dashboard_path
+end
+
+private
 
 # Use strong_parameters for attribute whitelisting
 # Be sure to update your create() and update() controller methods.
 
 def product_params
-  params.require(:product).permit(:image)
+	params.require(:product).permit(:image, :product_name, :description, :quantity)
 end
 end

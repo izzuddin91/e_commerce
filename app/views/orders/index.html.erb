@@ -1,14 +1,22 @@
 <h3>this is the list of product that we have:</h3>
 
+
+   <table id="example"  width="100%">
+<tr>
+	<td>product name</td>
+		<td>image</td>
+			<td>description</td>
+				<td>quantity</td>
+
+</tr><br>
 <%if !@product.nil? %>
 <% @product.each do |x| %>
-<%= x.product_name %>
-<%= image_tag x.image.url %>
-<%= x.description %>
-<%= x.quantity %>
-<%= x.id%>
-
-<%= link_to 'Order this product', order_path(x, :product_id => x.id ) %>
+<tr>
+<td><%= x.product_name %></td>
+<td><%= image_tag x.image.url (:medium)%></td>
+<td><%= x.description %></td>
+<td><%= x.quantity %></td>
+<td><%= link_to 'Order this product', order_path(x, :product_id => x.id ) %></td></tr><br>
 <%end%>
 
 <%end%>

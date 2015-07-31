@@ -5,28 +5,43 @@
 <%= @admin.email_address %>
 
 <h3>this is the list of product that you have published:</h3>
-
+   <table id="example"  width="100%">
 <%if !@product.nil? %>
-<% @product.each do|x| %>
-<%= x.product_name %>
-<%= image_tag x.image.url %>
-<%= x.description %>
-<%= x.quantity %>
-<%= x.id %>
+<tr>
+	<td>Product id</td>
+	<td>Product name</td>
+	<td>image </td>
+	<td>description </td>
+	<td>quantity </td>
+</tr><br>
+<tr>
+	<% @product.each do|x| %>
+		<td><%= x.id %></td>
+	<td><%= x.product_name %></td>
+	<td><%= image_tag x.image.url (:thumb)%></td>
+	<td><%= x.description %></td>
+	<td><%= x.quantity %></td>
+	<td><%= link_to 'Edit', edit_product_path(x, :product_id => x.id )  %></td>
+	    <td><%= link_to 'Destroy', product_destroy_path(x, :product_id => x.id ), data: { confirm: 'Are you sure?' } %></td>
+</tr><br>
 <%end%>
 <%end%>
+
+
 
 <p>create your product here:</p>
 <%= link_to "create new product", products_path %>
 
 <p>this is the list of all the order:</p>
+
 <div>
 <% @product.each do |y| %>
 <% @order = Order.where(product_id: y.id)%>
    <table id="example"  width="100%">
+   	<h3>Order for product <%= y.product_name%> </h3>
 <tr>
 	<td>order id</td>
-	<td>product id</td>
+	<td>product </td>
 	<td>product name</td>
 	<td>name</td>
 	<td>address</td>
